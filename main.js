@@ -3,16 +3,39 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function createRow() {
+  for (i = 1; i < 6; i++) {
+    let row = document.createElement("div");
+    row.id = "row " + String(i);
+    row.className = "row";
+    container.appendChild(row);
+  }
+}
+
 async function showData(data) {
   container.innerHTML = "";
+  createRow();
+  let j = 1;
+
   for (let i = 0; i < data.length; i++) {
+    let curRow = document.getElementById("row " + String(j));
     let a = document.createElement("a");
     a.href = data[i].artist.url;
     let img = new Image();
-    img.src = data[i].image[2]["#text"];
+    if (data[i].image[2]["#text"] == "") {
+      img.src =
+        "https://lastfm.freetls.fastly.net/i/u/174s/2a96cbd8b46e442fc41c2b86b821562f.png";
+    } else {
+      img.src = data[i].image[2]["#text"];
+    }
     a.appendChild(img);
+    a.className = "column";
+
+    curRow.appendChild(a);
+    if (curRow.childElementCount == 10) {
+      j++;
+    }
     await sleep(100);
-    container.appendChild(a);
   }
 }
 
