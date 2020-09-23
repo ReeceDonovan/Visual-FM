@@ -1,18 +1,30 @@
 function onTabClick(event) {
   let activeTabs = document.querySelectorAll(".active");
-
   for (let i = 0; i < activeTabs.length; i++) {
     activeTabs[i].className = activeTabs[i].className.replace("active", "");
   }
 
   event.target.parentElement.className += " active";
-  //   document.getElementById(event.target.href.split("#")[1]).className +=
+  //   document.getElementById().className +=
   //     " active";
+  switch (event.target.href.split("#")[1]) {
+    case "trackTab":
+      genTracks();
+      break;
+    case "albumTab":
+      genAlbums();
+      break;
+    case "artistTab":
+      genArtists();
+      break;
+  }
 }
 
 function handleTabs() {
   const element = document.getElementById("nav-tab");
   element.addEventListener("click", onTabClick, false);
+
+  element.firstChild.firstChild.click();
 }
 
 function genTabs() {
