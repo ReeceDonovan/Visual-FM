@@ -10,26 +10,28 @@ if (typeof window.history.replaceState == "function") {
 let searchBar = document.getElementsByClassName("searchBar");
 let initialBody = document.getElementsByClassName("initial");
 let usernameInput = document.getElementById("username");
-let username = usernameInput.value;
 let startBtn = document.getElementById("searchBtn");
 //API Elements
-let urls = [
-  "https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=" +
-    username +
-    "&api_key=690f24077f81c36f5c08ad294a858822&period=overall&format=json",
-  "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" +
-    username +
-    "&api_key=690f24077f81c36f5c08ad294a858822&period=overall&format=json",
-  "https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=" +
-    username +
-    "&api_key=690f24077f81c36f5c08ad294a858822&period=overall&format=json",
-];
+
 let topTrackData;
 let topAlbumData;
 let topArtistData;
 startBtn.addEventListener("click", getFMData);
 
 async function getFMData() {
+  let username = usernameInput.value;
+  let urls = [
+    "https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=" +
+      username +
+      "&api_key=690f24077f81c36f5c08ad294a858822&period=overall&format=json",
+    "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" +
+      username +
+      "&api_key=690f24077f81c36f5c08ad294a858822&period=overall&format=json",
+    "https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=" +
+      username +
+      "&api_key=690f24077f81c36f5c08ad294a858822&period=overall&format=json",
+  ];
+
   const results = await Promise.all(
     urls.map((url) => fetch(url).then((r) => r.json()))
   );
