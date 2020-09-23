@@ -1,11 +1,11 @@
 //Debug Elements
 //
 //UI Elements
+let searchBar = document.getElementsByClassName("searchBar");
+let initialBody = document.getElementsByClassName("initial");
 let usernameInput = document.getElementById("username");
 let username = usernameInput.value;
 let startBtn = document.getElementById("searchBtn");
-//Page Elements
-let cont = document.getElementById("infoContainer");
 //API Elements
 let urls = [
   "https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=" +
@@ -25,6 +25,8 @@ async function getFMData() {
   const results = await Promise.all(
     urls.map((url) => fetch(url).then((r) => r.json()))
   );
+  initialBody[0].className = initialBody[0].className.replace("initial", "");
+  searchBar[0].className = searchBar[0].className.replace("active", "");
   formatData(results);
 }
 
@@ -37,25 +39,4 @@ function formatData(d) {
   console.log(topAlbumData);
   console.log(topArtistData);
   genTabs();
-}
-
-function genTabs() {
-  cont.innerHTML = "";
-  let tabTitleNames = ["Top Tracks", "Top Albums", "Top Artists"];
-  let tabTitleLinks = ["#trackTab", "#albumTab", "#artistTab"];
-  let ul = document.createElement("ul");
-  ul.id = "nav-tab";
-  ul.className = "nav";
-  for (let i = 0; i < tabTitleLinks.length; i++) {
-    let li = document.createElement("li");
-    if (i == 0) {
-      li.className = "active";
-    }
-    let a = document.createElement("a");
-    a.href = tabTitleLinks[i];
-    a.innerHTML = tabTitleNames[i];
-    li.appendChild(a);
-    ul.appendChild(li);
-  }
-  cont.appendChild(ul);
 }
