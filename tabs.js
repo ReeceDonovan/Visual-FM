@@ -3,10 +3,7 @@ function onTabClick(event) {
   for (let i = 0; i < activeTabs.length; i++) {
     activeTabs[i].className = activeTabs[i].className.replace("active", "");
   }
-
   event.target.parentElement.className += " active";
-  //   document.getElementById().className +=
-  //     " active";
   switch (event.target.href.split("#")[1]) {
     case "trackTab":
       genTracks();
@@ -47,5 +44,8 @@ function genTabs() {
     ul.appendChild(li);
   }
   cont.appendChild(ul);
+  let content = document.createElement("section");
+  content.id = "content";
+  cont.appendChild(content);
   handleTabs();
 }

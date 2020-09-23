@@ -1,5 +1,11 @@
-//Debug Elements
-//
+//Make fresh url on page refresh
+window.location.replace("#");
+
+// slice off the remaining ‘#’ in HTML5:
+if (typeof window.history.replaceState == "function") {
+  history.replaceState({}, "", window.location.href.slice(0, -1));
+}
+
 //UI Elements
 let searchBar = document.getElementsByClassName("searchBar");
 let initialBody = document.getElementsByClassName("initial");
@@ -18,7 +24,9 @@ let urls = [
     username +
     "&api_key=690f24077f81c36f5c08ad294a858822&period=overall&format=json",
 ];
-
+let topTrackData;
+let topAlbumData;
+let topArtistData;
 startBtn.addEventListener("click", getFMData);
 
 async function getFMData() {
@@ -31,9 +39,9 @@ async function getFMData() {
 }
 
 function formatData(d) {
-  const topTrackData = d[0].toptracks.track;
-  const topAlbumData = d[1].topalbums.album;
-  const topArtistData = d[2].topartists.artist;
+  topTrackData = d[0].toptracks.track;
+  topAlbumData = d[1].topalbums.album;
+  topArtistData = d[2].topartists.artist;
 
   console.log(topTrackData);
   console.log(topAlbumData);
