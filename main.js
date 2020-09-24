@@ -1,14 +1,13 @@
 //Make fresh url on page refresh
 window.location.replace("#");
 
-// slice off the remaining ‘#’ in HTML5:
 if (typeof window.history.replaceState == "function") {
   history.replaceState({}, "", window.location.href.slice(0, -1));
 }
 
 //UI Elements
 let searchBar = document.getElementsByClassName("searchBar");
-let initialBody = document.getElementsByClassName("initial");
+let initial = document.getElementsByClassName("initial");
 let usernameInput = document.getElementById("username");
 let startBtn = document.getElementById("searchBtn");
 //API Elements
@@ -16,6 +15,8 @@ let startBtn = document.getElementById("searchBtn");
 let topTrackData;
 let topAlbumData;
 let topArtistData;
+
+let artistTags;
 startBtn.addEventListener("click", getFMData);
 
 async function getFMData() {
@@ -35,7 +36,8 @@ async function getFMData() {
   const results = await Promise.all(
     urls.map((url) => fetch(url).then((r) => r.json()))
   );
-  initialBody[0].className = initialBody[0].className.replace("initial", "");
+  initial[1].className = initial[1].className.replace("initial", "");
+  initial[0].className = initial[0].className.replace("initial", "");
   searchBar[0].className = searchBar[0].className.replace("active", "");
   formatData(results);
 }
@@ -44,7 +46,6 @@ function formatData(d) {
   topTrackData = d[0].toptracks.track;
   topAlbumData = d[1].topalbums.album;
   topArtistData = d[2].topartists.artist;
-
   console.log(topTrackData);
   console.log(topAlbumData);
   console.log(topArtistData);

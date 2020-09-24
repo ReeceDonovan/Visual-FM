@@ -11,8 +11,8 @@ function onTabClick(event) {
     case "albumTab":
       genAlbums();
       break;
-    case "artistTab":
-      genArtists();
+    case "genreTab":
+      genGenres();
       break;
   }
 }
@@ -27,8 +27,8 @@ function handleTabs() {
 function genTabs() {
   let cont = document.getElementById("infoContainer");
   cont.innerHTML = "";
-  let tabTitleNames = ["Top Tracks", "Top Albums", "Top Artists"];
-  let tabTitleLinks = ["#trackTab", "#albumTab", "#artistTab"];
+  let tabTitleNames = ["Top Tracks", "Top Albums", "Top Genres"];
+  let tabTitleLinks = ["#trackTab", "#albumTab", "#genreTab"];
   let ul = document.createElement("ul");
   ul.id = "nav-tab";
   ul.className = "nav";
