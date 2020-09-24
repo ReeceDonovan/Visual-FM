@@ -19,6 +19,13 @@ function fix_dpi() {
   canvas.setAttribute("height", style.height() * dpi);
 }
 
+function removeElement(array, elem) {
+  var index = array.indexOf(elem);
+  if (index > -1) {
+    array.splice(index, 1);
+  }
+}
+
 async function genTracks() {
   let contentSection = document.getElementById("content");
   let cont = document.getElementById("infoContainer");
@@ -158,6 +165,10 @@ async function genGenres() {
 
   let tagUrls = [];
   for (let i = 0; i < topArtistData.length; i++) {
+    if (topArtistData[i].name == "6ix9ine") {
+      removeElement(topArtistData, i);
+      continue;
+    }
     let nameLink = topArtistData[i].url.split("music/")[1];
     let u =
       "https://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=" +
@@ -170,10 +181,10 @@ async function genGenres() {
   );
   console.log(tagData);
 
-  for (let i = 0; i < topArtistData.length; i++) {
-    let k = 10;
+  for (let i = 0; i < topArtistData.length - 1; i++) {
+    let k = 20;
     if (tagData[i].toptags.tag.length < k) {
-      continue;
+      k = tagData[i].toptags.tag.length;
     }
     for (let j = 0; j < k; j++) {
       let curTag = tagData[i].toptags.tag[j].name;
@@ -196,7 +207,7 @@ async function genGenres() {
   ctx.translate(transX, transY);
 
   for (let key in genreCount) {
-    ctx.globalAlpha = genreCount[key] / 2;
+    ctx.globalAlpha = genreCount[key] / 4;
     let size = (genreCount[key] / 50) * 100;
     if (size > 70) {
       size = 90;
