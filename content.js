@@ -207,7 +207,7 @@ async function genGenres() {
   ctx.translate(transX, transY);
 
   for (let key in genreCount) {
-    ctx.globalAlpha = genreCount[key] / 4;
+    ctx.globalAlpha = genreCount[key] / 3.2;
     let size = (genreCount[key] / 50) * 100;
     if (size > 70) {
       size = 90;
