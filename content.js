@@ -214,7 +214,7 @@ async function genGenres() {
     let numH = Math.floor(Math.random() * 99) + 1;
     numH *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
     numH = numH / 100;
-
+    await sleep(50);
     ctx.fillText(
       key,
       numW * (canvas.width / 2.5),
